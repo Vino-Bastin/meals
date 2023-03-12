@@ -1,14 +1,13 @@
-import { StyleSheet } from "react-native";
-import { StatusBar } from "expo-status-bar";
 import { Ionicons } from "@expo/vector-icons";
+import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createDrawerNavigator } from "@react-navigation/drawer";
+import { StatusBar } from "expo-status-bar";
 
-import MealCategoriesScreen from "./screen/MealCategoriesScreen";
 import favMealsScreen from "./screen/FavMealsScreen";
+import MealCategoriesScreen from "./screen/MealCategoriesScreen";
 import MealsCategoriesDetailsScreen from "./screen/MealsCategoriesDetailsScreen";
-import MealsDetails from "./screen/MealsDetails";
+import MealDetails from "./screen/MealDetailsScreen";
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -37,7 +36,7 @@ const HomeScreen = () => {
         name="MealCategories"
         component={MealCategoriesScreen}
         options={{
-          title: "Meals Categories",
+          title: "All Categories",
           drawerIcon: ({ color, size }) => {
             return <Ionicons name="list" size={size} color={color} />;
           },
@@ -47,7 +46,7 @@ const HomeScreen = () => {
         name="favMealsScreen"
         component={favMealsScreen}
         options={{
-          title: "Favourite Meals",
+          title: "Favorite Meals",
           drawerIcon: ({ color, size }) => {
             return <Ionicons name="star" size={size} color={color} />;
           },
@@ -60,30 +59,34 @@ const HomeScreen = () => {
 export default function App() {
   return (
     <>
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
-            headerShown: false,
+            headerStyle: {
+              backgroundColor: "#351401",
+            },
+            contentStyle: {
+              backgroundColor: "#684e4e",
+            },
+            headerTintColor: "#fff",
+            headerTitleAlign: "center",
           }}
         >
-          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
           <Stack.Screen
             name="MealsCategoriesDetailsScreen"
             component={MealsCategoriesDetailsScreen}
           />
-          <Stack.Screen name="MealsDetails" component={MealsDetails} />
+          <Stack.Screen name="MealDetails" component={MealDetails} />
         </Stack.Navigator>
       </NavigationContainer>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

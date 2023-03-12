@@ -1,18 +1,18 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { FlatList } from "react-native";
 
-const MealCategoriesScreen = (props) => {
+import { CATEGORIES } from "../data/dummy-data";
+import Category from "../components/Category";
+
+const MealCategoriesScreen = () => {
   return (
-    <View style={styles.screen}>
-      <Text>The Meal Categories Screen!</Text>
-    </View>
+    <FlatList
+      data={CATEGORIES}
+      renderItem={({ item }) => <Category categoryId={item.id} />}
+      keyExtractor={(item) => item.id}
+      numColumns={2}
+    />
   );
 };
-
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-  },
-});
 
 export default MealCategoriesScreen;
