@@ -1,19 +1,35 @@
-import React from "react";
+import React, { useContext, useLayoutEffect } from "react";
 import { Image, StyleSheet, ScrollView, View } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 
 import Title from "../components/ui/Title";
 import MealOverView from "../components/MealOverView";
 import Header from "../components/ui/Header";
-import { MEALS } from "../data/dummy-data";
 import List from "../components/ui/List";
+import { MealsContext } from "../hooks/Store";
 
 const MealDetails = () => {
   const route = useRoute();
   const navigation = useNavigation();
+  const { meals, isFavorite, toggleFavorite } = useContext(MealsContext);
 
   const mealId = route.params.mealId;
-  const meal = MEALS.find((meal) => meal.id === mealId);
+  const meal = meals.find((meal) => meal.id === mealId);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      title: "Meal Details",
+      headerRight: () => (
+        <Ionicons
+          name="ios-star"
+          size={24}
+          color={isFavorite(mealId) ? "orange" : "white"}
+          onPress={toggleFavorite.bind(this, mealId)}
+        />
+      ),
+    });
+  }, [navigation, route, isFavorite, toggleFavorite, mealId]);
 
   return (
     <ScrollView style={styles.screen}>

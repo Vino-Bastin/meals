@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import Card from "./ui/Card";
 import Title from "./ui/Title";
 import MealOverView from "./MealOverView";
-import { MEALS } from "../data/dummy-data";
+import { MealsContext } from "../hooks/Store";
 
 const Meal = ({ mealId }) => {
   const navigation = useNavigation();
-  const meal = MEALS.find((meal) => meal.id === mealId);
+  const { meals } = useContext(MealsContext);
+  const meal = meals.find((meal) => meal.id === mealId);
 
   const onPress = () => {
     navigation.navigate("MealDetails", {

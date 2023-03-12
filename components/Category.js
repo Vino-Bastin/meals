@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import Card from "./ui/Card";
-
-import { CATEGORIES } from "../data/dummy-data";
+import { MealsContext } from "../hooks/Store";
 
 const Category = ({ categoryId }) => {
-  const category = CATEGORIES.find((category) => category.id === categoryId);
+  const { categories } = useContext(MealsContext);
+  const category = categories.find((category) => category.id === categoryId);
 
   const navigation = useNavigation();
 

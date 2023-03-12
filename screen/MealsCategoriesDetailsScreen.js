@@ -1,18 +1,20 @@
-import React, { useLayoutEffect } from "react";
+import React, { useContext, useLayoutEffect } from "react";
 import { FlatList, Text } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 import Meal from "../components/Meal";
-import { CATEGORIES, MEALS } from "../data/dummy-data";
+import { MealsContext } from "../hooks/Store";
 
 const MealsCategoriesDetailsScreen = () => {
   const route = useRoute();
   const navigation = useNavigation();
 
+  const { categories, meals } = useContext(MealsContext);
+
   const { categoryId } = route.params;
 
-  const selectedCategory = CATEGORIES.find((cat) => cat.id === categoryId);
-  const selectedMeals = MEALS.filter((meal) =>
+  const selectedCategory = categories.find((cat) => cat.id === categoryId);
+  const selectedMeals = meals.filter((meal) =>
     meal.categoryIds.includes(categoryId)
   );
 

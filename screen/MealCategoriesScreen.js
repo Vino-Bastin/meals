@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FlatList } from "react-native";
 
-import { CATEGORIES } from "../data/dummy-data";
+import { MealsContext } from "../hooks/Store";
 import Category from "../components/Category";
 
 const MealCategoriesScreen = () => {
+  const { categories } = useContext(MealsContext);
   return (
     <FlatList
-      data={CATEGORIES}
+      data={categories}
       renderItem={({ item }) => <Category categoryId={item.id} />}
       keyExtractor={(item) => item.id}
       numColumns={2}
